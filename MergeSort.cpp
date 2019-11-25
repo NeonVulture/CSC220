@@ -1,8 +1,11 @@
 #include <iostream>
 #include <climits>
 #include <cmath>
+#include <chrono>
+#include <cstdlib>  // For srand() and rand()
 
 using namespace std;
+using namespace std::chrono;
 
 void Merge(int A[], int p, int q, int r) {
   int n1 = q - p + 1;
@@ -99,11 +102,23 @@ void printArray(int A[], int size)
 } 
 
 int main() {
-  int A[] = {5,2,4,7,1,3,6};
+  int n;
+  cout << "Enter the number of elements: ";
+  cin >> n;
+  int A[n]; 
+  //int randomN = srand(time(0));  // Initialize random number generator. 
+  for (int i = 0; i < n; i++){
+      A[i] = rand() % 100;
+  }
+ 
   int ArraySize = sizeof(A)/sizeof(A[0]);
   //int ArraySize = 8;
   printArray(A, ArraySize);
+  auto start = high_resolution_clock::now();
   MergeSort(A, 0, ArraySize - 1);
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
   printArray(A, ArraySize);
+  cout << "\ntime taken by Mergesort " << duration.count() << " microseconds." << endl;
   return 0;
 }
