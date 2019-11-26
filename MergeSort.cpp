@@ -3,6 +3,7 @@
 #include <cmath>
 #include <chrono>
 #include <cstdlib>  // For srand() and rand()
+#include <ctime>
 
 using namespace std;
 using namespace std::chrono;
@@ -106,7 +107,7 @@ int main() {
   cout << "Enter the number of elements: ";
   cin >> n;
   int A[n]; 
-  //int randomN = srand(time(0));  // Initialize random number generator. 
+  srand(time(0));  // Initialize random number generator. 
   for (int i = 0; i < n; i++){
       A[i] = rand() % 100;
   }
