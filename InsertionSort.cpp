@@ -2,6 +2,7 @@
 #include <string>
 #include <chrono>
 #include <cstdlib>
+#include <ctime>
 
 using namespace std;
 using namespace std::chrono;
@@ -31,7 +32,7 @@ int main() {
     cout << "Enter the number of elements: ";
     cin >> n;
     int A[n];
-    
+    srand(time(0));
     for(int i = 0; i < n;i++) {
         A[i] = rand() % 100;
     }
