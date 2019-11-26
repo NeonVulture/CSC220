@@ -79,7 +79,7 @@ int main() {
     Heapsort(A,n); 
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start); 
-    for (int i = 0; i < arraySize ; i++) {
+    for (int i = 0; i < n; i++) {
         cout << A[i] << " ";
     }
     cout << "\n";
