@@ -119,6 +119,6 @@ int main() {
   auto stop = high_resolution_clock::now();
   auto duration = duration_cast<microseconds>(stop - start);
   printArray(A, ArraySize);
-  cout << "\ntime taken by Mergesort " << duration.count() << " microseconds." << endl;
+  cout << "\ntime taken by Mergesort: " << duration.count() << " microseconds." << endl;
   return 0;
 }
