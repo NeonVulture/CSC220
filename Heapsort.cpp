@@ -29,8 +29,8 @@ void MAXHEAPIFY(int *A, int i) {
      }     else {
           largest = i;
      }
-     if (r <= heapsize && A[r - 1] > A[largest - 1]) { 
-          largest = r;
+     if (right <= heapsize && A[right] > A[largest]) { 
+          largest = right;
      }
      if (largest != i) {
           swap(A[i], A[largest]);
