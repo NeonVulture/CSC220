@@ -11,11 +11,11 @@ int getRightChild() {
 }
 
 void MAXHEAPIFY(int *A, int i, int n) {
-     int largest, l , r;
-     l = 2 * i; // left child
-     r = (2 * i) + 1; // right child
-     if (l <= n && A[l - 1] > A[i - 1]) {
-          largest = l;
+     int largest, left , right;
+     left = getLeftChild(i); // left child
+     right = getRightChild(i); // right child
+     if (left <= n && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
+          largest = left;
      }
      else {
           largest = i;
