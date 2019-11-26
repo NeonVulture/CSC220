@@ -6,6 +6,8 @@
 using namespace std;
 using namesapce std::chrono;
 
+int heapsize;
+
 int getParent(int i) {
      return i/2;
 }
@@ -18,39 +20,38 @@ int getRightChild() {
      return (2*i+2);
 }
 
-void MAXHEAPIFY(int *A, int i, int n) {
+void MAXHEAPIFY(int *A, int i) {
      int largest, left , right;
      left = getLeftChild(i); // left child
      right = getRightChild(i); // right child
-     if (left <= n && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
+     if (left <= heapsize && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
           largest = left;
-     }
-     else {
+     }     else {
           largest = i;
      }
-     if (r <= n && A[r - 1] > A[largest - 1]) { 
+     if (r <= heapsize && A[r - 1] > A[largest - 1]) { 
           largest = r;
      }
      if (largest != i) {
-          swap(A[i-1], A[largest - 1]);
-          MAXHEAPIFY(A, largest, n);
+          swap(A[i], A[largest]);
+          MAXHEAPIFY(A, largest);
      }
 }
 
-void BUILDMAXHEAP(int *A, int h, int *n) {
-      n = h - 1;
-      for(int i = h/2; i>=0; i--) {
-           MAXHEAPIFY(A,i,n);
+void BUILDMAXHEAP(int *A, int n) {
+     heapsize = n;
+      for(int i = n/2; i >= 0; i--) {
+           MAXHEAPIFY(A,i);
       }
 }
 
 
 void Heapsort(int *A, int n) {
-     BUILDMAXHEAP(A,h,n);
-     for(int i = h-1; i > 0 ; i--) { // for i <- length[A] down to 2
+     BUILDMAXHEAP(A,n);
+     for(int i = n-1; i > 0 ; i--) { // for i <- length[A] down to 2 (also i >= 1)
           swap(A[0],A[i]); // Myabe try A[i-1]
-          *n--;
-          MAXHEAPIFY(A,0,n);
+          heapsize--;
+          MAXHEAPIFY(A,0);
      }
 }
 
@@ -65,14 +66,15 @@ int main() {
      int *A, n;
      cout << "Enter the number of elements: ";
      cin >> n;
+     A = (int*)malloc(sizeof(int)*n);
      srand(time(0));
      for (int i = 0; i < n; i++) {
-          A = (int*) malloc(sizeog(int)*(rand()%100));
+          A[i] = rand() % 100;
      }
     int arraySize = sizeof(A)/sizeof(A[0]);
-    cout << "Given Array \n \n";
+    cout << "Given Array: \n \n";
     printArray(A,arraySize);
-    cout << "\nSorted Array \n \n";
+    cout << "\nSorted Array: \n \n";
     auto start = high_resolution_clock::now();
     Heapsort(A,n); 
     auto stop = high_resolution_clock::now();
@@ -82,7 +84,7 @@ int main() {
     }
     cout << "\n";
     cout << "Time taken by Heapsort: " << duration.count()  << " microseconds." << endl;
-     return 0;
+    return 0;
 }
 
  
