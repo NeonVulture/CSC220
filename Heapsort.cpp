@@ -12,24 +12,24 @@ int getParent(int i) {
      return i/2;
 }
 
-int getLeftChild(int i ) {
-    return (2*i+1);
+int getLeftChild(int i) {
+    return (2*i);
 }
 
 int getRightChild(int i) {
-     return (2*i+2);
+     return (2*i+1);
 }
 
 void MAXHEAPIFY(int *A, int i) {
      int largest, left , right;
      left = getLeftChild(i); // left child
      right = getRightChild(i); // right child
-     if (left <= heapsize && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
+     if (left < heapsize && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
           largest = left;
      }     else {
           largest = i;
      }
-     if (right <= heapsize && A[right] > A[largest]) { 
+     if (right < heapsize && A[right] > A[largest]) { 
           largest = right;
      }
      if (largest != i) {
@@ -71,9 +71,9 @@ int main() {
      for (int i = 0; i < n; i++) {
           A[i] = rand() % 100;
      }
-    int arraySize = sizeof(A)/sizeof(A[0]);
-    cout << "Given Array: \n \n";
-    printArray(A,arraySize);
+    //int arraySize = sizeof(A)/sizeof(A[0]);
+    //cout << "Given Array: \n \n";
+    //printArray(A,arraySize);
     cout << "\nSorted Array: \n \n";
     auto start = high_resolution_clock::now();
     Heapsort(A,n); 
@@ -86,5 +86,3 @@ int main() {
     cout << "Time taken by Heapsort: " << duration.count()  << " microseconds." << endl;
     return 0;
 }
-
- 
