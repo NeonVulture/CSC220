@@ -1,10 +1,15 @@
 #include <iostream>
 #include <chrono>
-#igggjf
-srand(time(0));
-int RandomPartition (int *A, int p, int r) {
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+using namespace std::chrono;
+
+
+int Partition (int *A, int p, int r) {
     int x = A[r]; // Set x equal to the pivot located at A[r] (i.e the last element in A)
-    int i = p + (rand % r - p + 1); // random pivot index i (double check!!!) 
+    int i = p;
     for (int j = p; j < r; j++) {
         if (A[j] <= x) { // if element at A[j] is <= the pivot
             swap(A[j],A[i]); // Exchange elements A[j] and A[i]
@@ -16,11 +21,18 @@ int RandomPartition (int *A, int p, int r) {
     return i;
 }
 
-void Ran
+int RandomizedParition (int *A, int p, int r) {
+    srand(time(0));
+    int i = p + (rand() % (r-p+1));
+    swap(A[r],A[i]);
+    return Partition(A,p,r);
+}
+
+void RandomizedQuickSort(int *A, int p, int r) {
     if (p < r) { // Condition needed to prevent infinite recursion
-        int q = RandomPartition(A,p,r); // partition index 
-        QuickSort(A,p,q-1); // 
-        QuickSort(A,q+1,r);
+        int q = RandomizedParition(A,p,r); // partition index 
+        RandomizedQuickSort(A,p,q-1); // 
+        RandomizedQuickSort(A,q+1,r);
     }
 }
 
@@ -47,7 +59,7 @@ int main() {
     printArray(A,arraySize);
     cout << "\nSorted Array \n \n";
     auto start = high_resolution_clock::now();
-    QuickSort(A,0,arraySize-1); 
+    RandomizedQuickSort(A,0,arraySize-1); 
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start); 
     for (int i = 0; i < arraySize ; i++) {
