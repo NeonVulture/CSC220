@@ -4,7 +4,7 @@
 #include <ctime>
 
 using namespace std;
-using namesapce std::chrono;
+using namespace std::chrono;
 
 int heapsize;
 
@@ -12,11 +12,11 @@ int getParent(int i) {
      return i/2;
 }
 
-int getLeftChild() {
+int getLeftChild(int i ) {
     return (2*i+1);
 }
 
-int getRightChild() {
+int getRightChild(int i) {
      return (2*i+2);
 }
 
