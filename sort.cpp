@@ -23,21 +23,19 @@ int main() {
       cin >> n;
       int A[n];
       srand(time(0));
-      for
+      for (int i = 0 ; i < n; i++) {
+        A[i] = rand() % 1000;
+      }
       int ArraySize = sizeof(A)/sizeof(A[0]);
+      cout << "Given Array: " << endl;
       printArray(A,ArraySize);
-
-    auto start = high_resolution_clock::now();
-
-    InsertionSort(A, ArraySize);
-
-    auto stop = high_resolution_clock::now();
-
-    auto duration = duration_cast<microseconds>(stop - start);
-
-    printArray(A, ArraySize);
-
-    cout << "\nTime taken by Insertion-Sort: " << duration.count() << " microseconds." << endl; 
+      auto start = high_resolution_clock::now();
+      InsertionSort(A, ArraySize);
+      auto stop = high_resolution_clock::now();
+      auto duration = duration_cast<microseconds>(stop - start);
+      cout << "Sorted Array via InsertionSort: " << endl;
+      printArray(A, ArraySize);
+      cout << "\nTime taken by Insertion-Sort: " << duration.count() << " microseconds." << endl; 
       break:
     case 2: //Merge
       int n;
