@@ -38,31 +38,31 @@ int main() {
       cout << "\nTime taken by Insertion-Sort: " << duration.count() << " microseconds." << endl; 
       break:
     case 2: //Merge
-      int n;
-      cout << "Enter the number of elements: " << endl;
-      cin >> n;
-      int A[n];
+      //int n;
+      //cout << "Enter the number of elements: " << endl;
+      //cin >> n;
+      //int A[n];
       break;
     case 3: // Quicksort
-      int n;
-      cout << "Enter the number of elements: " << endl;
-      cin >> n;
+      //int n;
+      //cout << "Enter the number of elements: " << endl;
+      //cin >> n;
       int A[n];
       break;
     case 4: // Randomized
-      int n;
-      cout << "Enter the number of elements: " << endl;
-      cin >> n;
-      int A[n];
+      //int n;
+      //cout << "Enter the number of elements: " << endl;
+      //cin >> n;
+      //int A[n];
       break;
     case 5: // Heapsort
-      int n, *A;
-      cout << "Enter the number of elements: " << endl;
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
+      //int n, *A;
+      //cout << "Enter the number of elements: " << endl;
+      //cin >> n;
+      //A = (int*)malloc(sizeof(int)*n);
       break;
     default:
-      cout << "Invaild choice!" << endl;
+      //cout << "Invaild choice!" << endl;
       break;
   }
   return 0;
