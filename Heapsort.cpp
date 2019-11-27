@@ -70,7 +70,7 @@ int main() {
      //A[n];
      srand(time(0));
      for (int i = 0; i < n; i++) {
-          A[i] = rand() % 100;
+          A[i] = rand() % 1000; // Pick a random number in the range [0,999]
      }
     int arraySize = sizeof(A)+2;
     cout << "Given Array: \n \n";
