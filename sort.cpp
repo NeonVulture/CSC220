@@ -22,6 +22,22 @@ int main() {
       cout << "Enter the number of elements: " << endl;
       cin >> n;
       int A[n];
+      srand(time(0));
+      for
+      int ArraySize = sizeof(A)/sizeof(A[0]);
+      printArray(A,ArraySize);
+
+    auto start = high_resolution_clock::now();
+
+    InsertionSort(A, ArraySize);
+
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    printArray(A, ArraySize);
+
+    cout << "\nTime taken by Insertion-Sort: " << duration.count() << " microseconds." << endl; 
       break:
     case 2: //Merge
       int n;
@@ -55,7 +71,19 @@ int main() {
 }
 
 /******************************************INSERTION_SORT*************************************/
-/*********************************************************************************************/
+void InsertionSort(int *A,int n) {
+    int i, j, key;
+    for(j = 1; j < n; j++) {
+        key = A[j];
+        i = j - 1;
+        while (i >= 0 && A[i] > key) {
+            A[i + 1] = A[i];
+            i = i - 1;
+        }
+        A[i + 1 ] = key;
+    }
+}
+/***************************************END_OF_INSERTION_SORT********************************/
 void printArray(int *A, int size) {
    for(int i = 0; i < n; i++)
         cout << A[i] << " " << endl;
