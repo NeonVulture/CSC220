@@ -73,8 +73,8 @@ int main() {
           A[i] = rand() % 100;
      }
     int arraySize = sizeof(A)+2;
-    cout << "Given Array: \n \n";
-    printArray(A,arraySize);
+    //cout << "Given Array: \n \n";
+    //printArray(A,arraySize);
     cout << "\nSorted Array: \n \n";
     auto start = high_resolution_clock::now();
     Heapsort(A,n); 
