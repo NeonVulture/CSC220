@@ -18,14 +18,34 @@ int main() {
   int choice = 0;
   switch(choice) {
     case 1: // Insertion
+      int n;
+      cout << "Enter the number of elements: " << endl;
+      cin >> n;
+      int A[n];
       break:
     case 2: //Merge
+      int n;
+      cout << "Enter the number of elements: " << endl;
+      cin >> n;
+      int A[n];
       break;
     case 3: // Quicksort
+      int n;
+      cout << "Enter the number of elements: " << endl;
+      cin >> n;
+      int A[n];
       break;
     case 4: // Randomized
+      int n;
+      cout << "Enter the number of elements: " << endl;
+      cin >> n;
+      int A[n];
       break;
     case 5: // Heapsort
+      int n, *A;
+      cout << "Enter the number of elements: " << endl;
+      cin >> n;
+      A = (int*
       break;
     default:
       cout << "Invaild choice!" << endl;
