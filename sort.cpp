@@ -45,7 +45,7 @@ int main() {
       int n, *A;
       cout << "Enter the number of elements: " << endl;
       cin >> n;
-      A = (int*
+      A = (int*)malloc(sizeof(int)*n);
       break;
     default:
       cout << "Invaild choice!" << endl;
@@ -56,3 +56,5 @@ int main() {
 
 /******************************************INSERTION_SORT*************************************/
 /*********************************************************************************************/
+void printArray(int *A, int size) {
+}
