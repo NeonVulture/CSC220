@@ -59,5 +59,5 @@ int main() {
 void printArray(int *A, int size) {
    for(int i = 0; i < n; i++)
         cout << A[i] << " " << endl;
-    cout << ("\n");
+    cout << "\n";
 }
