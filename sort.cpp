@@ -39,25 +39,25 @@ int main() {
       break:
     case 2: //Merge
       //int n;
-      //cout << "Enter the number of elements: " << endl;
+      cout << "Enter the number of elements: " << endl;
       //cin >> n;
       //int A[n];
       break;
     case 3: // Quicksort
       //int n;
-      //cout << "Enter the number of elements: " << endl;
+      cout << "Enter the number of elements: " << endl;
       //cin >> n;
       int A[n];
       break;
     case 4: // Randomized
       //int n;
-      //cout << "Enter the number of elements: " << endl;
+      cout << "Enter the number of elements: " << endl;
       //cin >> n;
       //int A[n];
       break;
     case 5: // Heapsort
       //int n, *A;
-      //cout << "Enter the number of elements: " << endl;
+      cout << "Enter the number of elements: " << endl;
       //cin >> n;
       //A = (int*)malloc(sizeof(int)*n);
       break;
@@ -83,7 +83,7 @@ void InsertionSort(int *A,int n) {
 }
 /***************************************END_OF_INSERTION_SORT********************************/
 void printArray(int *A, int size) {
-   for(int i = 0; i < n; i++)
+   for(int i = 0; i < size; i++)
         cout << A[i] << " " << endl;
     cout << "\n";
 }
