@@ -189,13 +189,14 @@ int main() {
   duration<double> time_span;
 
   cout << "\t\t\t\t\t\t\t\t\t\t\t\t Welcome!" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t =====================================" << endl;
+  cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
   cout << "\t\t\t\t\t\t\t\t\t\t 1 - Insertion Sort" << endl;
   cout << "\t\t\t\t\t\t\t\t\t\t 2 - Merge Sort" << endl;
   cout << "\t\t\t\t\t\t\t\t\t\t 3 - Heapsort" << endl;
   cout << "\t\t\t\t\t\t\t\t\t\t 4 - Quicksort" << endl;
   cout << "\t\t\t\t\t\t\t\t\t\t 5 - Randomized Quicksort" << endl;
-  
+  cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;  
+
   int choice;
   cout << "\n\nSelect a sorting algorithm: ";
   cin >> choice;
