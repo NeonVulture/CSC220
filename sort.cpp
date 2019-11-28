@@ -182,20 +182,22 @@ void printArray(int *A, int size) {
 }
 /*******************************************************************************************/
 
-int main() {
-  int *A, n;
-  high_resolution_clock::time_point start;
-  high_resolution_clock::time_point stop;
-  duration<double> time_span;
 
-  cout << "\t\t\t\t\t\t\t\t\t\t\t\t Welcome!" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t 1 - Insertion Sort" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t 2 - Merge Sort" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t 3 - Heapsort" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t 4 - Quicksort" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t 5 - Randomized Quicksort" << endl;
-  cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;  
+/******************************************************************************************/
+void printMenu() {
+    int *A, n;
+    high_resolution_clock::time_point start;
+    high_resolution_clock::time_point stop;
+    duration<double> time_span;
+
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t Welcome!" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 1 - Insertion Sort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 2 - Merge Sort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 3 - Heapsort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 4 - Quicksort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 5 - Randomized Quicksort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
 
   int choice;
   cout << "\n\nSelect a sorting algorithm: ";
@@ -219,7 +221,7 @@ int main() {
       time_span = duration_cast<microseconds>(stop - start);
       cout << "Sorted Array via InsertionSort: " << endl;
       printArray(A, n);
-      cout << "\nTime taken by Insertion-Sort: " << time_span.count() << " microseconds." << endl; 
+      cout << "\nTime taken by Insertion-Sort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
     case 2: //Merge
       cout << "Enter the number of elements: ";
@@ -237,7 +239,7 @@ int main() {
       time_span = duration_cast<microseconds>(stop - start);
       cout << "Sorted Array via Mergesort: " << endl;
       printArray(A, n);
-      cout << "\nTime taken by Mergesort: " << time_span.count() << " microseconds." << endl;
+      cout << "\nTime taken by Mergesort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
     case 3: // Heapsort
       cout << "Enter the number of elements: ";
@@ -245,17 +247,17 @@ int main() {
       A = (int*)malloc(sizeof(int)*n);
       srand(time(0));
       for (int i = 0 ; i < n; i++) {
-        A[i] = rand() % 1000; 
+        A[i] = rand() % 1000;
       }
       cout << "Given Array: " << endl;
       printArray(A,n);
       start = high_resolution_clock::now();
-      Heapsort(A,n); 
+      Heapsort(A,n);
       stop = high_resolution_clock::now();
       time_span = duration_cast<microseconds>(stop - start);
       cout << "Sorted Array via Heapsort: " << endl;
       printArray(A, n);
-      cout << "\nTime taken by Heapsort: " << time_span.count() << " microseconds." << endl; 
+      cout << "\nTime taken by Heapsort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
     case 4: // Quicksort
       cout << "Enter the number of elements: ";
@@ -273,7 +275,7 @@ int main() {
       time_span = duration_cast<microseconds>(stop - start);
       cout << "Sorted Array via Quicksort: " << endl;
       printArray(A,n);
-      cout << "\nTime taken by Quicksort: " << time_span.count() << " microseconds." << endl;
+      cout << "\nTime taken by Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
     case 5: // Random
       cout << "Enter the number of elements: ";
@@ -291,12 +293,32 @@ int main() {
       time_span = duration_cast<microseconds>(stop - start);
       cout << "Sorted Array via Randomized Quicksort: " << endl;
       printArray(A, n);
-      cout << "\nTime taken by Randomized Quicksort: " << time_span.count() << " microseconds." << endl;
-      break; 
+      cout << "\nTime taken by Randomized Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
+      break;
     default:
       cout << "Invaild choice!" << endl;
       break;
   }
+}
+/**************************************************************************************************************************/
+
+/**************************************************************************************************************************/
+void ReturnToMenu() {
+    char goBack;
+    cout << "\nWould you like to return to the menu Y/N? ";
+    cin >> goBack;
+    if(goBack == 'Y' || goBack =='y') {
+        printMenu();
+    } else {
+        cout << "\nGoodbye!" << endl;
+    }
+}
+
+/***************************************************************************************************************************/
+
+int main() {
+  printMenu();
+  ReturnToMenu();
   return 0;
 }
 
