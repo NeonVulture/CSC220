@@ -317,8 +317,15 @@ void ReturnToMenu() {
 /***************************************************************************************************************************/
 
 int main() {
-  printMenu();
-  ReturnToMenu();
+  bool quit = false;
+  char leave;
+  do {
+      printMenu();
+      cout << "Would you like to quit? Y/N ";
+      cin >> leave;
+      if (leave == 'y' || leave == 'Y') quit = true;
+  } while (quit == false);
+  cout << "\t\t\t\t\t\t\t\t\t\t\t\tGoodbye!" << endl;
   return 0;
 }
 
