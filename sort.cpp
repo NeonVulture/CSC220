@@ -2,7 +2,8 @@
 #include <cstdlib> // For srand() and rand()
 #include <ctime> // For implementing srand()
 #include <chrono> // For calculating run-time
-#include <cmath> // To utilize floor function
+#include <cmath> // To utilize floor function (Used in Mergesort)
+#include <climits> // To utilize Infinity (Specifically to assign the sentinels in Mergesort)
 
 using namespace std;
 using namespace std::chrono;
@@ -17,7 +18,7 @@ void InsertionSort(int *A,int n) {
             A[i + 1] = A[i];
             i = i - 1;
         }
-        A[i + 1 ] = key;
+        A[i + 1] = key;
     }
 }
 /***************************************END_OF_INSERTION_SORT********************************/
@@ -50,12 +51,12 @@ void Merge(int *A, int p, int q, int r) {
      }
  }
 
- void MergeSort(int *A, int p, int r) {
+ void Mergesort(int *A, int p, int r) {
      if(p < r) {
          int result = (p+r)/2;
          int q = floor(result); // q is the mid index (where we partition the array)
-         MergeSort(A, p, q);
-         MergeSort(A, q + 1, r);
+         Mergesort(A, p, q);
+         Mergesort(A, q + 1, r);
          Merge(A, p, q, r);
      }
  }
@@ -185,7 +186,7 @@ void printMenu() {
   cin >> choice;
 
   switch(choice) {
-    case 1: // Insertion
+    case 1: // Insertion Sort
       cout << "Enter the number of elements: ";
       cin >> n;
       A = (int*)malloc(sizeof(int)*n);
@@ -193,7 +194,6 @@ void printMenu() {
       for (int i = 0 ; i < n; i++) {
         A[i] = rand() % 1000; // random number from 0 to 999
       }
-      //int ArraySize = sizeof(A)/sizeof(A[0]);
       cout << "Given Array: " << endl;
       printArray(A,n);
       start = high_resolution_clock::now();
@@ -204,7 +204,7 @@ void printMenu() {
       printArray(A, n);
       cout << "\nTime taken by Insertion-Sort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
-    case 2: //Merge
+    case 2: // Mergesort
       cout << "Enter the number of elements: ";
       cin >> n;
       A = (int*)malloc(sizeof(int)*n);
@@ -258,7 +258,7 @@ void printMenu() {
       printArray(A,n);
       cout << "\nTime taken by Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
       break;
-    case 5: // Random
+    case 5: // Randomized Quicksort
       cout << "Enter the number of elements: ";
       cin >> n;
       A = (int*)malloc(sizeof(int)*n);
@@ -283,26 +283,12 @@ void printMenu() {
 }
 /**************************************************************************************************************************/
 
-/**************************************************************************************************************************/
-void ReturnToMenu() {
-    char goBack;
-    cout << "\nWould you like to return to the menu Y/N? ";
-    cin >> goBack;
-    if(goBack == 'Y' || goBack =='y') {
-        printMenu();
-    } else {
-        cout << "\nGoodbye!" << endl;
-    }
-}
-
-/***************************************************************************************************************************/
-
 int main() {
   bool quit = false;
   char leave;
   do {
       printMenu();
-      cout << "Would you like to quit? Y/N ";
+      cout << "\nWould you like to quit? Y/N ";
       cin >> leave;
       if (leave == 'y' || leave == 'Y') quit = true;
   } while (quit == false);
