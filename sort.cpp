@@ -179,6 +179,7 @@ void printMenu() {
     cout << "\t\t\t\t\t\t\t\t\t\t 3 - Heapsort" << endl;
     cout << "\t\t\t\t\t\t\t\t\t\t 4 - Quicksort" << endl;
     cout << "\t\t\t\t\t\t\t\t\t\t 5 - Randomized Quicksort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 6 - All" << endl;
     cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
 
   int choice;
@@ -273,8 +274,60 @@ void printMenu() {
       stop = high_resolution_clock::now();
       time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via Randomized Quicksort: " << endl;
-      printArray(A, n);
+      printArray(A,n);
       cout << "\nTime taken by Randomized Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
+      break;
+    case 6: // All algorithms
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for (int i = 0; i < n; i++) {
+          A[i] = rand() % 1000;
+      }
+      cout << "Given Array: " << endl;
+      printArray(A,n);
+
+      start = high_resolution_clock::now();
+      InsertionSort(A,n);
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start);
+      cout << "\nSorted Array via Insertionsort: " << endl;
+      printArray(A,n);
+      cout << "\nTime taken by InsertionSort: " << time_span.count()*1e6 << " microseconds." << endl;
+      
+      start = high_resolution_clock::now();
+      Mergesort(A,0,n-1);
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start);
+      cout << "\nSorted Array via Mergesort: " << endl;
+      printArray(A, n);
+      cout << "\nTime taken by Mergesort: " << time_span.count()*1e6 << " microseconds." << endl;
+
+      start = high_resolution_clock::now();
+      Heapsort(A,n);
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start);
+      cout << "Sorted Array via Heapsort: " << endl;
+      printArray(A, n);
+      cout << "\nTime taken by Heapsort: " << time_span.count()*1e6 << " microseconds." << endl;
+      
+      start = high_resolution_clock::now();
+      Quicksort(A,0,n-1);
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start);
+      cout << "Sorted Array via Quicksort: " << endl;
+      printArray(A,n);
+      cout << "\nTime taken by Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
+      
+      start = high_resolution_clock::now();
+      RandomizedQuicksort(A,0,n-1);
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start);
+      cout << "Sorted Array via Randomized Quicksort: " << endl;
+      printArray(A,n);
+      cout << "\nTime taken by Randomized Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
+
       break;
     default:
       cout << "Invaild choice!" << endl;
