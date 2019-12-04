@@ -81,7 +81,7 @@ void MAXHEAPIFY(int *A, int i) {
      int largest, left , right;
      left = getLeftChild(i); // left child
      right = getRightChild(i); // right child
-     if (left < heapsize && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
+     if (left < heapsize && A[left] > A[i]) {
           largest = left;
      }     else {
           largest = i;
@@ -104,8 +104,8 @@ void BUILDMAXHEAP(int *A, int n) {
 
 void Heapsort(int *A, int n) {
      BUILDMAXHEAP(A,n);
-     for(int i = n-1; i > 0 ; i--) { // for i <- length[A] down to 2 (also i >= 1)
-          swap(A[0],A[i]); // Myabe try A[i-1]
+     for(int i = n-1; i > 0 ; i--) { // for i <- length[A] down to 2 
+          swap(A[0],A[i]); 
           heapsize--;
           MAXHEAPIFY(A,0);
      }
@@ -142,7 +142,7 @@ void Quicksort(int *A, int p, int r) {
 
 int RandomizedParition (int *A, int p, int r) {
     srand(time(0));
-    int i = p + (rand() % (r-p+1));
+    int i = p + (rand() % (r-p+1)); // Random pivot
     swap(A[r],A[i]);
     return Partition(A,p,r);
 }
@@ -199,7 +199,7 @@ void printMenu() {
       start = high_resolution_clock::now();
       InsertionSort(A, n);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
+      time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via InsertionSort: " << endl;
       printArray(A, n);
       cout << "\nTime taken by Insertion-Sort: " << time_span.count()*1e6 << " microseconds." << endl;
@@ -217,7 +217,7 @@ void printMenu() {
       start = high_resolution_clock::now();
       Mergesort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
+      time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via Mergesort: " << endl;
       printArray(A, n);
       cout << "\nTime taken by Mergesort: " << time_span.count()*1e6 << " microseconds." << endl;
@@ -235,7 +235,7 @@ void printMenu() {
       start = high_resolution_clock::now();
       Heapsort(A,n);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
+      time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via Heapsort: " << endl;
       printArray(A, n);
       cout << "\nTime taken by Heapsort: " << time_span.count()*1e6 << " microseconds." << endl;
@@ -253,7 +253,7 @@ void printMenu() {
       start = high_resolution_clock::now();
       Quicksort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
+      time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via Quicksort: " << endl;
       printArray(A,n);
       cout << "\nTime taken by Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
@@ -271,7 +271,7 @@ void printMenu() {
       start = high_resolution_clock::now();
       RandomizedQuicksort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
+      time_span = duration_cast<duration<double>>(stop - start);
       cout << "Sorted Array via Randomized Quicksort: " << endl;
       printArray(A, n);
       cout << "\nTime taken by Randomized Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
