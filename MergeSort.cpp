@@ -9,38 +9,26 @@ using namespace std;
 using namespace std::chrono;
 
 void Merge(int A[], int p, int q, int r) {
-  int n1 = q - p + 1;
-  int n2 = r - q;
-  //int  L[n1 + 1], R[n2 + 1];
-
-  int L[n1], R[n2];
+  int n1 = q - p + 1; // length of LEFT subarray
+  int n2 = r - q; // length of RIGHT subarray
+  int L[n1], R[n2]; // Create LEFT & RIGHT subarrays
   
-  for(int i = 0; i < n1; i++) {
+  for(int i = 0; i < n1; i++) { // Copies the subarray A[p...q] into L[1...n1]
     L[i] = A[p + i];
     //[i] = A[p + i - 1];
     
   }
-  for(int j = 0; j < n2; j++) {
-    R[j] = A[q + j + 1];
-    //R[j] = A[q + j];
+  for(int j = 0; j < n2; j++) { // Copies the subarray A[q+1...r] into R[1...n2]
+    R[j] = A[q + j + 1]; 
   }
   //L[n1 + 1] = INT_MIN;
   //R[n2 + 1] = INT_MIN;
   
 
-  int i = 0;
-  int j = 0;
-
-  /*for(int k = 1; p <= r; k++) {
-    if (L[k] <= R[j]) {
-      A[k] = L[i];
-      i++;
-    } else {
-      A[k] = R[j];
-      j++; 
-    }
-  }*/
+  int i = 0; // First index such that L[0] contains the smallest element that has not been copies back to A
+  int j = 0; // First index such that R[0] contains the smallest element that has not been copies back to A
   
+  // Up to this point I diverge from TxtBook
     int k = p;
     while (i < n1 && j < n2) {
         
@@ -65,22 +53,6 @@ void Merge(int A[], int p, int q, int r) {
         j++;
         k++;
     }
-
- /* for(int k = p; p < r; k++) {
-      if (i > n1) {
-          A[k] = R[j];
-          j++;
-      } else if (j > n2) {
-          A[k] = L[i];
-          i++;
-      } else if (L[i] <= R[j]) {
-          A[k] = L[j];
-          i++;
-      } else {
-          A[k] = R[j];
-          j++;
-      }
-  }*/
 }
 
 void MergeSort(int A[], int p, int r) {
