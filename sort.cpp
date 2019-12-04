@@ -23,61 +23,42 @@ void InsertionSort(int *A,int n) {
 /***************************************END_OF_INSERTION_SORT********************************/
 
 /***************************************MERGESORT********************************************/
-void Merge(int A[], int p, int q, int r) {
-  int n1 = q - p + 1;
-  int n2 = r - q;
-  //int  L[n1 + 1], R[n2 + 1];
+void Merge(int *A, int p, int q, int r) {
+     int n1 = q - p + 1; //Length of LEFT subarray
+     int n2 = r - q; // Length of RIGHT subarray
+     int L[n1 + 1], R[n2 + 1]; //Create LEFT & RIGHT arrays
 
-  int L[n1], R[n2];
-  
-  for(int i = 0; i < n1; i++) {
-    L[i] = A[p + i];
-    //[i] = A[p + i - 1];
-    
-  }
-  for(int j = 0; j < n2; j++) {
-    R[j] = A[q + j + 1];
-    //R[j] = A[q + j];
-  }
-  //L[n1 + 1] = INT_MIN;
-  //R[n2 + 1] = INT_MIN;
-  
-  int i = 0;
-  int j = 0;
-    int k = p;
-    while (i < n1 && j < n2) {
-        
-        if (L[i] <= R[j]) {
-            A[k] = L[i];
-            i++;
-        } else {
-            A[k] = R[j];
-            j++; 
-        }
-        k++;
-    }  
-    while (i < n1) {
-        A[k] = L[i];
-        i++;
-        k++;
-    }
-    while (j < n2) {
-        A[k] = R[j];
-        j++;
-        k++;
-    }
-}
+     L[n1] = INT_MAX; //Assign sentinel
+     R[n2] = INT_MAX; //Assign sentinel
 
-void Mergesort(int A[], int p, int r) {
-  if (p < r) {
-    int result = (p+r)/2;
-    int q = floor(result);
-    // q = p + (r-p)/2; 
-    Mergesort(A, p, q);
-    Mergesort(A, q + 1, r);
-    Merge(A, p, q, r);
-  }
-}
+     for (int i = 0; i < n1; i++) // Copies the subarray A[p...q] into L[1...n1
+         L[i] = A[p + i];
+     for (int j = 0; j < n2; j++) // Copies the subarray A[q+1...r] into R[1...n2]
+         R[j] = A[q + j + 1];
+
+     int i = 0; // First index such that L[0] contains the smallest element that has not been copied back to A
+     int j = 0; // First index such that R[0] contains the smallest element that has not been copied back to A
+
+     for (int k = p; k <= r; k++) {
+         if (L[i] <= R[j]) { // Compare the two elements at their respective indicies (both are intially at index 0)
+             A[k] = L[i]; // Assign A[K] to the element at L[i] only if the condition above is true
+             i++; // Increase the index i by 1 only if the condition above is true
+         } else { // If the condtion above is false, then...
+             A[k] = R[j]; // Assign A[k] to the value of R[j] if the condition above is false
+             j++; // Increase the index i by 1 only if the condition above is false
+         }
+     }
+ }
+
+ void MergeSort(int *A, int p, int r) {
+     if(p < r) {
+         int result = (p+r)/2;
+         int q = floor(result); // q is the mid index (where we partition the array)
+         MergeSort(A, p, q);
+         MergeSort(A, q + 1, r);
+         Merge(A, p, q, r);
+     }
+ }
 /****************************************END_OF_MERGSORT*************************************/
 
 /*******************************************HEAPSORT*****************************************/
