@@ -65,29 +65,36 @@ void Merge(int *A, int p, int q, int r) {
 /*******************************************HEAPSORT*****************************************/
 int heapsize;
 
-int getParent(int i) {
+int PARENT(int i) { // Get Parent
      return i/2;
 }
 
-int getLeftChild(int i) {
+int LEFT(int i) { // Get left child
     return (2*i);
 }
 
-int getRightChild(int i) {
+int RIGHT(int i) { // Get right child
      return (2*i+1);
 }
 
-void MAXHEAPIFY(int *A, int i) {
-     int largest, left , right;
-     left = getLeftChild(i); // left child
-     right = getRightChild(i); // right child
-     if (left < heapsize && A[left] > A[i]) {
-          largest = left;
+void MAXHEAPIFY(int *A, int i) { // Function to maintain Max-Heap Property
+     int largest, l , r;
+     l = LEFT(i);
+     r = RIGHT(i); 
+     /* We want to find the largest out of A[LEFT(i)], A[RIGHT(i)], and A[i]
+      * If the largest is A[i], then the subtree rooted at node i is already a Max-HEAP and we're done.
+      * If not, then either the left or right child contain the largest in which case we will swap that element (A[largest]) with A[i]
+      * such that node i and its children satify the MAX-HEAP property. Note however, that after swapping the subtree rooted at node largest
+      * may violate the MAX-HEAP property.
+     */
+    
+     if (l < heapsize && A[l] > A[i]) { 
+          largest = l;
      }     else {
           largest = i;
      }
-     if (right < heapsize && A[right] > A[largest]) { 
-          largest = right;
+     if (r < heapsize && A[r] > A[largest]) { 
+          largest = r;
      }
      if (largest != i) {
           swap(A[i], A[largest]);
@@ -95,9 +102,9 @@ void MAXHEAPIFY(int *A, int i) {
      }
 }
 
-void BUILDMAXHEAP(int *A, int n) {
+void BUILDMAXHEAP(int *A, int n) { // Do MAXHEAPIFY for the remaining nodes of the tree to remedy a possible violation and GUARANTEE that each node satisfies the MAX-HEAP property
      heapsize = n;
-      for(int i = n/2; i >= 0; i--) {
+      for(int i = n/2; i >= 0; i--) { // for n/2 down to 1
            MAXHEAPIFY(A,i);
       }
 }
