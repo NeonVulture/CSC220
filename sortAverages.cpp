@@ -205,14 +205,15 @@ int main() {
           A[i] = rand() % 1000; // random number from 0 to 999
      }
   
-    for (int x = 0; x < 100; x++) { // Dp 100 sorts and return the average
-      start = high_resolution_clock::now();
+    start = high_resolution_clock::now();
+    for (int x = 0; x < 1000; x++) {
       InsertionSort(A,n);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
-      InsertSum += time_span.count()*1e6;
+      //InsertSum += time_span.count()*1e6;
     }
-    cout << "Average run-time of Insertion Sort: " << InsertSum/100 << " mircoseconds;
+    stop = high_resolution_clock::now();
+    time_span = duration_cast<duration<double>>(stop - start);
+    cout << "Total Run-time: " << time_span.count()*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Insertion Sort: " << (time_span.count()*1e6)/1000 << " mircoseconds.";
 
   /*switch(choice) {
     case 1: // Insertion
