@@ -2,8 +2,8 @@
 #include <cstdlib> // For srand() and rand()
 #include <ctime> // For implementing srand()
 #include <chrono> // For calculating run-time
-#include <cmath> // To utilize floor function
-#inlcude <climits>
+#include <cmath> // To utilize floor function (Used in Mergesort)
+#include <climits> // To utilize Infinity (Specifically to assign the sentinels in Mergesort)
 
 using namespace std;
 using namespace std::chrono;
@@ -18,7 +18,7 @@ void InsertionSort(int *A,int n) {
             A[i + 1] = A[i];
             i = i - 1;
         }
-        A[i + 1 ] = key;
+        A[i + 1] = key;
     }
 }
 /***************************************END_OF_INSERTION_SORT********************************/
@@ -28,18 +28,18 @@ void Merge(int *A, int p, int q, int r) {
      int n1 = q - p + 1; //Length of LEFT subarray
      int n2 = r - q; // Length of RIGHT subarray
      int L[n1 + 1], R[n2 + 1]; //Create LEFT & RIGHT arrays
- 
+
      L[n1] = INT_MAX; //Assign sentinel
      R[n2] = INT_MAX; //Assign sentinel
- 
+
      for (int i = 0; i < n1; i++) // Copies the subarray A[p...q] into L[1...n1
          L[i] = A[p + i];
      for (int j = 0; j < n2; j++) // Copies the subarray A[q+1...r] into R[1...n2]
          R[j] = A[q + j + 1];
- 
+
      int i = 0; // First index such that L[0] contains the smallest element that has not been copied back to A
      int j = 0; // First index such that R[0] contains the smallest element that has not been copied back to A
- 
+
      for (int k = p; k <= r; k++) {
          if (L[i] <= R[j]) { // Compare the two elements at their respective indicies (both are intially at index 0)
              A[k] = L[i]; // Assign A[K] to the element at L[i] only if the condition above is true
@@ -50,7 +50,7 @@ void Merge(int *A, int p, int q, int r) {
          }
      }
  }
- 
+
  void Mergesort(int *A, int p, int r) {
      if(p < r) {
          int result = (p+r)/2;
@@ -65,29 +65,36 @@ void Merge(int *A, int p, int q, int r) {
 /*******************************************HEAPSORT*****************************************/
 int heapsize;
 
-int getParent(int i) {
+int PARENT(int i) { // Get Parent (This function is not actually used)
      return i/2;
 }
 
-int getLeftChild(int i) {
+int LEFT(int i) { // Get left child
     return (2*i);
 }
 
-int getRightChild(int i) {
+int RIGHT(int i) { // Get right child
      return (2*i+1);
 }
 
-void MAXHEAPIFY(int *A, int i) {
-     int largest, left , right;
-     left = getLeftChild(i); // left child
-     right = getRightChild(i); // right child
-     if (left < heapsize && A[left] > A[i]) { // Maybe try A[left-1] && A[i-1]
-          largest = left;
+void MAXHEAPIFY(int *A, int i) { // Function to maintain Max-Heap Property
+     int largest, l , r;
+     l = LEFT(i);
+     r = RIGHT(i); 
+     /* We want to find the largest out of A[LEFT(i)], A[RIGHT(i)], and A[i]
+      * If the largest is A[i], then the subtree rooted at node i is already a Max-HEAP and we're done.
+      * If not, then either the left or right child contain the largest in which case we will swap that element (A[largest]) with A[i]
+      * such that node i and its children satify the MAX-HEAP property. Note however, that after swapping the subtree rooted at node largest
+      * may violate the MAX-HEAP property.
+     */
+    
+     if (l < heapsize && A[l] > A[i]) { 
+          largest = l;
      }     else {
           largest = i;
      }
-     if (right < heapsize && A[right] > A[largest]) { 
-          largest = right;
+     if (r < heapsize && A[r] > A[largest]) { 
+          largest = r;
      }
      if (largest != i) {
           swap(A[i], A[largest]);
@@ -95,17 +102,17 @@ void MAXHEAPIFY(int *A, int i) {
      }
 }
 
-void BUILDMAXHEAP(int *A, int n) {
+void BUILDMAXHEAP(int *A, int n) { // Do MAXHEAPIFY for the remaining nodes of the tree to remedy a possible violation and GUARANTEE that each node satisfies the MAX-HEAP property
      heapsize = n;
-      for(int i = n/2; i >= 0; i--) {
+      for(int i = n/2; i >= 0; i--) { // for n/2 down to 1
            MAXHEAPIFY(A,i);
       }
 }
 
 void Heapsort(int *A, int n) {
      BUILDMAXHEAP(A,n);
-     for(int i = n-1; i > 0 ; i--) { // for i <- length[A] down to 2 (also i >= 1)
-          swap(A[0],A[i]); // Myabe try A[i-1]
+     for(int i = n-1; i > 0 ; i--) { // for i <- length[A] down to 2 
+          swap(A[0],A[i]); 
           heapsize--;
           MAXHEAPIFY(A,0);
      }
@@ -142,7 +149,7 @@ void Quicksort(int *A, int p, int r) {
 
 int RandomizedParition (int *A, int p, int r) {
     srand(time(0));
-    int i = p + (rand() % (r-p+1));
+    int i = p + (rand() % (r-p+1)); // Random pivot
     swap(A[r],A[i]);
     return Partition(A,p,r);
 }
@@ -156,30 +163,9 @@ void RandomizedQuicksort(int *A, int p, int r) {
 }
 /***********************************END_OF_RANDOMIZED_QUICKSORT******************************/
 
-/******************************************PrintArray****************************************/
-void printArray(int *A, int size) {
-   for(int i = 0; i < size; i++)
-        cout << A[i] << " ";
-    cout << "\n";
-}
-/*******************************************************************************************/
-
-
-/******************************************************************************************/
-
-/**************************************************************************************************************************/
 int main() {
     int *A, n;
-    double InsertSum = 0;
-    double InsertAvg = 0.0;
-    int MergeSum = 0;
-    double MergeAvg = 0.0;
-    int HeapSum = 0;
-    double HeapAvg = 0.0;
-    int QuickSum = 0;
-    double QuickAvg = 0.0;
-    int RandQuickSum = 0;
-    double RandQuickAvg = 0.0; 
+    double Sum = 0;
     high_resolution_clock::time_point start;
     high_resolution_clock::time_point stop;
     duration<double> time_span;
@@ -191,112 +177,62 @@ int main() {
           A[i] = rand() % 1000; // random number from 0 to 999
      }
   
-    start = high_resolution_clock::now();
-    for (int x = 0; x < 1000; x++) {
+    for (int x = 0; x < 100; x++) {
+      start = high_resolution_clock::now();
       InsertionSort(A,n);
-      //InsertSum += time_span.count()*1e6;
+      stop = high_resolution_clock::now();
+      time_span = duration_cast<duration<double>>(stop - start); 
+      Sum += time_span.count();
+      //cout << time_span.count()*1e6 << endl;
     }
-    stop = high_resolution_clock::now();
-    time_span = duration_cast<duration<double>>(stop - start);
-    cout << "Total Run-time: " << time_span.count()*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Insertion Sort: " << (time_span.count()*1e6)/1000 << " mircoseconds.";
-
-  /*switch(choice) {
-    case 1: // Insertion
-      cout << "Enter the number of elements: ";
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
-      srand(time(0));
-      for(int x = 0; x < 100; x++) { // Perform 100 sorts
-        for (int i = 0 ; i < n; i++) {
-          A[i] = rand() % 1000; // random number from 0 to 999
-        }
-        cout << "Given Array: " << endl;
-        printArray(A,n);
-        start = high_resolution_clock::now();
-        InsertionSort(A, n);
-        stop = high_resolution_clock::now();
-        time_span = duration_cast<microseconds>(stop - start);
-        cout << "Sorted Array via InsertionSort: " << endl;
-        printArray(A, n);
-        cout << "\nTime taken by Insertion-Sort: " << time_span.count()*1e6 << " microseconds." << endl;
-      }
-      break;
-    case 2: //Merge
-      cout << "Enter the number of elements: ";
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
-      srand(time(0));
-      for(int i = 0; i < n; i++) {
-          A[i] = rand() % 1000;
-      }
-      cout << "Given Array: " << endl;
-      printArray(A,n);
+    cout << "Total run-time for Insertion Sort after 100 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Insertion Sort after 100 runs for " << n << " elements: " << (Sum*1e6)/100 << " mircoseconds." << endl;
+    cout << "\n";
+    Sum = 0;
+    for (int x = 0; x < 100; x++) {
       start = high_resolution_clock::now();
       Mergesort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
-      cout << "Sorted Array via Mergesort: " << endl;
-      printArray(A, n);
-      cout << "\nTime taken by Mergesort: " << time_span.count()*1e6 << " microseconds." << endl;
-      break;
-    case 3: // Heapsort
-      cout << "Enter the number of elements: ";
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
-      srand(time(0));
-      for (int i = 0 ; i < n; i++) {
-        A[i] = rand() % 1000;
-      }
-      cout << "Given Array: " << endl;
-      printArray(A,n);
+      time_span = duration_cast<duration<double>>(stop - start); 
+      Sum += time_span.count();
+    }
+    cout << "Total run-time for Mergesort after 100 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Mergesort after 100 runs for " << n << " elements: " << (Sum*1e6)/100 << " mircoseconds." << endl;
+    cout << "\n";
+    
+    Sum = 0;
+    for (int x = 0; x < 100; x++) {
       start = high_resolution_clock::now();
       Heapsort(A,n);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
-      cout << "Sorted Array via Heapsort: " << endl;
-      printArray(A, n);
-      cout << "\nTime taken by Heapsort: " << time_span.count()*1e6 << " microseconds." << endl;
-      break;
-    case 4: // Quicksort
-      cout << "Enter the number of elements: ";
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
-      srand(time(0));
-      for (int i = 0 ; i < n; i++) {
-        A[i] = rand() % 1000;
-      }
-      cout << "Given Array: " << endl;
-      printArray(A,n);
+      time_span = duration_cast<duration<double>>(stop - start); 
+      Sum += time_span.count();
+    }
+    cout << "Total run-time for Heapsort after 100 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Heapsort after 100 runs for " << n << " elements: " << (Sum*1e6)/100 << " mircoseconds." << endl;
+    cout << "\n";
+    
+    Sum = 0;
+    for (int x = 0; x < 100; x++) {
       start = high_resolution_clock::now();
       Quicksort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
-      cout << "Sorted Array via Quicksort: " << endl;
-      printArray(A,n);
-      cout << "\nTime taken by Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
-      break;
-    case 5: // Random
-      cout << "Enter the number of elements: ";
-      cin >> n;
-      A = (int*)malloc(sizeof(int)*n);
-      srand(time(0));
-      for (int i = 0 ; i < n; i++) {
-        A[i] = rand() % 1000;
-      }
-      cout << "Given Array: " << endl;
-      printArray(A,n);
+      time_span = duration_cast<duration<double>>(stop - start); 
+      Sum += time_span.count();
+    }
+    cout << "Total run-time for Quicksort after 100 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Quicksort after 100 runs for " << n << " elements: " << (Sum*1e6)/100 << " mircoseconds." << endl;
+    cout << "\n";
+    
+    Sum = 0;
+    for (int x = 0; x < 100; x++) {
       start = high_resolution_clock::now();
       RandomizedQuicksort(A,0,n-1);
       stop = high_resolution_clock::now();
-      time_span = duration_cast<microseconds>(stop - start);
-      cout << "Sorted Array via Randomized Quicksort: " << endl;
-      printArray(A, n);
-      cout << "\nTime taken by Randomized Quicksort: " << time_span.count()*1e6 << " microseconds." << endl;
-      break;
-    default:
-      cout << "Invaild choice!" << endl;
-      break;
-  }*/
-  return 0;
+      time_span = duration_cast<duration<double>>(stop - start); 
+      Sum += time_span.count();
+    }
+    cout << "Total run-time for Randomized Quicksort after 100 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+    cout << "Average run-time of Randomized Quicksort after 100 runs for " << n << " elements: " << (Sum*1e6)/100 << " mircoseconds." << endl;
+    return 0;
 }
