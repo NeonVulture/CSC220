@@ -65,7 +65,7 @@ void Merge(int *A, int p, int q, int r) {
 /*******************************************HEAPSORT*****************************************/
 int heapsize;
 
-int PARENT(int i) { // Get Parent
+int PARENT(int i) { // Get Parent (This function is not actually used)
      return i/2;
 }
 
