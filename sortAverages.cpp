@@ -3,6 +3,7 @@
 #include <ctime> // For implementing srand()
 #include <chrono> // For calculating run-time
 #include <cmath> // To utilize floor function
+#inlcude <climits>
 
 using namespace std;
 using namespace std::chrono;
@@ -167,21 +168,6 @@ void printArray(int *A, int size) {
 /******************************************************************************************/
 
 /**************************************************************************************************************************/
-
-/**************************************************************************************************************************/
-void ReturnToMenu() {
-    char goBack;
-    cout << "\nWould you like to return to the menu Y/N? ";
-    cin >> goBack;
-    if(goBack == 'Y' || goBack =='y') {
-        printMenu();
-    } else {
-        cout << "\nGoodbye!" << endl;
-    }
-}
-
-/***************************************************************************************************************************/
-
 int main() {
     int *A, n;
     double InsertSum = 0;
