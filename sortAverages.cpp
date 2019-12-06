@@ -163,76 +163,145 @@ void RandomizedQuicksort(int *A, int p, int r) {
 }
 /***********************************END_OF_RANDOMIZED_QUICKSORT******************************/
 
-int main() {
-    int *A, n;
+/******************************************************************************************/
+void printMenu() {
+    int *A, n, r;
     double Sum = 0;
     high_resolution_clock::time_point start;
     high_resolution_clock::time_point stop;
     duration<double> time_span;
-    cout << "Enter the number of elements: ";
-    cin >> n;
-    A = (int*)malloc(sizeof(int)*n);
-    srand(time(0));
-    for (int i = 0 ; i < n; i++) {
-          A[i] = rand() % 1000; // random number from 0 to 999
-     }
-  
-    for (int x = 0; x < 1000; x++) {
-      start = high_resolution_clock::now();
-      InsertionSort(A,n);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<duration<double>>(stop - start); 
-      Sum += time_span.count();
-      //cout << time_span.count()*1e6 << endl;
-    }
-    cout << "Total run-time for Insertion Sort after 1000 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Insertion Sort after 1000 runs for " << n << " elements: " << (Sum*1e6)/1000 << " mircoseconds." << endl;
-    cout << "\n";
-    Sum = 0;
-    for (int x = 0; x < 1000; x++) {
-      start = high_resolution_clock::now();
-      Mergesort(A,0,n-1);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<duration<double>>(stop - start); 
-      Sum += time_span.count();
-    }
-    cout << "Total run-time for Mergesort after 1000 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Mergesort after 1000 runs for " << n << " elements: " << (Sum*1e6)/1000 << " mircoseconds." << endl;
-    cout << "\n";
-    
-    Sum = 0;
-    for (int x = 0; x < 1000; x++) {
-      start = high_resolution_clock::now();
-      Heapsort(A,n);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<duration<double>>(stop - start); 
-      Sum += time_span.count();
-    }
-    cout << "Total run-time for Heapsort after 1000 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Heapsort after 1000 runs for " << n << " elements: " << (Sum*1e6)/1000 << " mircoseconds." << endl;
-    cout << "\n";
-    
-    Sum = 0;
-    for (int x = 0; x < 1000; x++) {
-      start = high_resolution_clock::now();
-      Quicksort(A,0,n-1);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<duration<double>>(stop - start); 
-      Sum += time_span.count();
-    }
-    cout << "Total run-time for Quicksort after 1000 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Quicksort after 1000 runs for " << n << " elements: " << (Sum*1e6)/1000 << " mircoseconds." << endl;
-    cout << "\n";
-    
-    Sum = 0;
-    for (int x = 0; x < 1000; x++) {
-      start = high_resolution_clock::now();
-      RandomizedQuicksort(A,0,n-1);
-      stop = high_resolution_clock::now();
-      time_span = duration_cast<duration<double>>(stop - start); 
-      Sum += time_span.count();
-    }
-    cout << "Total run-time for Randomized Quicksort after 1000 runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
-    cout << "Average run-time of Randomized Quicksort after 1000 runs for " << n << " elements: " << (Sum*1e6)/1000 << " mircoseconds." << endl;
-    return 0;
+
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t Welcome!" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 1 - Insertion Sort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 2 - Merge Sort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 3 - Heapsort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 4 - Quicksort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t 5 - Randomized Quicksort" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t +++++++++++++++++++++++++++++++++++++" << endl;
+
+  int choice;
+  cout << "\n\nSelect a sorting algorithm: ";
+  cin >> choice;
+
+  switch(choice) {
+    case 1: // Insertion Sort
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for (int i = 0 ; i < n; i++) {
+        A[i] = rand() % 1000; // random number from 0 to 999
+      }
+      cout << "How many runs would you like to perform? ";
+      cin >> r;
+      for(int x = 0;x < r;x++) {
+         start = high_resolution_clock::now();
+         InsertionSort(A, n);
+         stop = high_resolution_clock::now();
+         time_span = duration_cast<duration<double>>(stop - start);
+         Sum += time_span.count();
+      }
+      cout << "Total run-time for Insertion Sort after " << r << " runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+      cout << "Average run-time of Insertion Sort after " << r << " runs for "  << n << " elements: " << (Sum*1e6)/r << " mircoseconds." << endl;
+      break;
+    case 2: // Mergesort
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for(int i = 0; i < n; i++) {
+          A[i] = rand() % 1000;
+      }
+      cout << "How many runs would you like to perform? ";
+      cin >> r;
+      for(int x = 0;x < r;x++) {
+         start = high_resolution_clock::now();
+         Mergesort(A,0,n-1);
+         stop = high_resolution_clock::now();
+         time_span = duration_cast<duration<double>>(stop - start);
+         Sum += time_span.count();
+      }
+      cout << "Total run-time for Mergesort after " << r << " runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+      cout << "Average run-time of Mergesort after " << r << " runs for "  << n << " elements: " << (Sum*1e6)/r << " mircoseconds." << endl;
+      break;
+    case 3: // Heapsort
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for (int i = 0 ; i < n; i++) {
+        A[i] = rand() % 1000;
+      }
+      cout << "How many runs would you like to perform? ";
+      cin >> r;
+      for(int x = 0;x < r;x++) {
+         start = high_resolution_clock::now();
+         Heapsort(A,n);
+         stop = high_resolution_clock::now();
+         time_span = duration_cast<duration<double>>(stop - start);
+         Sum += time_span.count();
+      }
+      cout << "Total run-time for Heapsort after " << r << " runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+      cout << "Average run-time of Heapsort after " << r << " runs for "  << n << " elements: " << (Sum*1e6)/r << " mircoseconds." << endl;
+      break;
+    case 4: // Quicksort
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for (int i = 0 ; i < n; i++) {
+        A[i] = rand() % 1000;
+      }
+      cout << "How many runs would you like to perform? ";
+      cin >> r;
+      for(int x = 0;x < r;x++) {
+         start = high_resolution_clock::now();
+         Quicksort(A,0,n-1);
+         stop = high_resolution_clock::now();
+         time_span = duration_cast<duration<double>>(stop - start);
+         Sum += time_span.count();
+      }
+      cout << "Total run-time for Quicksort after " << r << " runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+      cout << "Average run-time of Quicksort after " << r << " runs for "  << n << " elements: " << (Sum*1e6)/r << " mircoseconds." << endl;
+      break;
+    case 5: // Randomized Quicksort
+      cout << "Enter the number of elements: ";
+      cin >> n;
+      A = (int*)malloc(sizeof(int)*n);
+      srand(time(0));
+      for (int i = 0 ; i < n; i++) {
+        A[i] = rand() % 1000;
+      }
+      cout << "How many runs would you like to perform? ";
+      cin >> r;
+      for(int x = 0;x < r;x++) {
+         start = high_resolution_clock::now();
+         RandomizedQuicksort(A,0,n-1);
+         stop = high_resolution_clock::now();
+         time_span = duration_cast<duration<double>>(stop - start);
+         Sum += time_span.count();
+      }
+      cout << "Total run-time for RandomizedQuicksort after " << r << " runs for " << n << " elements: " << Sum*1e6 << " microseconds." << endl;
+      cout << "Average run-time of RandomizedQuicksort after " << r << " runs for "  << n << " elements: " << (Sum*1e6)/r << " mircoseconds." << endl;
+      break;
+    default:
+      cout << "Invaild choice!" << endl;
+      break;
+  }
 }
+/**************************************************************************************************************************/
+
+int main() {
+  bool quit = false;
+  char leave;
+  do {
+      printMenu();
+      cout << "\nWould you like to quit? Y/N ";
+      cin >> leave;
+      if (leave == 'y' || leave == 'Y') quit = true;
+  } while (quit == false);
+  cout << "\t\t\t\t\t\t\t\t\t\t\t\tGoodbye!" << endl;
+  return 0;
+}
+
