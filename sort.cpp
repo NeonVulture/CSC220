@@ -35,7 +35,7 @@ void Merge(int *A, int p, int q, int r) {
      L[n1] = INT_MAX; //Assign sentinel
      R[n2] = INT_MAX; //Assign sentinel
 
-     for (int i = 0; i < n1; i++) // Copies the subarray A[p...q] into L[1...n1
+     for (int i = 0; i < n1; i++) // Copies the subarray A[p...q] into L[1...n1]
          L[i] = A[p + i];
      for (int j = 0; j < n2; j++) // Copies the subarray A[q+1...r] into R[1...n2]
          R[j] = A[q + j + 1];
