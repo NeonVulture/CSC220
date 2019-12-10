@@ -1,3 +1,6 @@
+// FILE: sort.cpp
+// AUTHOR: ANTHONY RAMOS
+
 #include <iostream> // For inputing and outputing to the console
 #include <cstdlib> // For srand() and rand()
 #include <ctime> // For implementing srand()
